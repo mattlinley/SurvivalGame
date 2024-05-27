@@ -1,0 +1,68 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 06d426be17a350e418e04401ff6f853e, type: 3}
+  m_Name: First_NPC_Quest1
+  m_EditorClassIdentifier: 
+  initialDialog:
+  - "Hey,\nI didn't expect to see anyone out here.\nI'm Peter, I live in the nearby
+    village.\t"
+  - 'I''m supposed to help my father get rabbit hides,
+
+    He is a leatherworker.'
+  - 'I know he wants me to learn the trade,
+
+    and one day take it over.
+
+    Sometimes
+    I just feel like a disappointment.'
+  - I came here to help but I'm struggling to catch the rabbits.
+  - 'Maybe you could help me?
+
+
+    Don''t worry, I will pay you.'
+  initialDialogClips:
+  - {fileID: 8300000, guid: 0e1289cadb7b999459c986c180c882c0, type: 3}
+  - {fileID: 8300000, guid: 6daf684e40c891347be8f8a8bf58b1d8, type: 3}
+  - {fileID: 8300000, guid: e76e1b2cb96870343b9d5b7d86f647c3, type: 3}
+  - {fileID: 8300000, guid: 09b74a5fb3b76b24e9a21ef4e8be007f, type: 3}
+  - {fileID: 8300000, guid: 18783e79bd26cc64a86e51165756b776, type: 3}
+  acceptOption: Sure, I can help you.
+  acceptAnswer: 'That''s amazing!
+
+    If you can bring me 5 rabbit hides that will
+    be plenty.'
+  acceptAnswerClip: {fileID: 8300000, guid: 2c33a05f6bfa1ef4b94251f95422256d, type: 3}
+  declineOption: I'm sorry, not right now.
+  declineAnswer: 'Oh well, it was worth a try.
+
+
+    Please come back if you change
+    your mind.'
+  declineAnswerClip: {fileID: 8300000, guid: c15ed51bbeadcc54f8102c7050b26f07, type: 3}
+  comebackAfterDecline: Hi again, did you change your mind?
+  comebackAfterDeclineClip: {fileID: 8300000, guid: 3856c60ec3264a74bb5fd849c55a634a, type: 3}
+  comebackInProgress: I still need more rabbit hides.
+  comebackInProgressClip: {fileID: 8300000, guid: b944c1d6009b04c40aa9c3ec3bae89f7, type: 3}
+  comebackCompleted: Thank you! Here, take this fishing rod, I never use it.
+  comebackCompletedClip: {fileID: 8300000, guid: ed7018bdbfbeb5b458d5d45138a0a7f5, type: 3}
+  finalWords: I'm sure my father will be happy.
+  finalWordsClip: {fileID: 8300000, guid: 98a67c0dae8159047a0014e1bc348fbd, type: 3}
+  coinReward: 25
+  rewardItem1: FishingRod
+  rewardItem2: 
+  firstRequirementItem: RabbitHide
+  firstRequirementAmount: 5
+  secondRequirementItem: 
+  secondRequirementAmount: 0
+  hasCheckpoints: 1
+  checkpoints:
+  - {fileID: 11400000, guid: 84041ba4e0adf18488a7213a50aacaf6, type: 2}
