@@ -8,7 +8,7 @@ public class GhostItem : MonoBehaviour
 
     public Renderer mRenderer;
     private Material semiTransparentMat; // Used for debug - insted of the full trasparent
-    private Material fullTransparentnMat;
+    private Material fullTransparentMat;
     private Material selectedMaterial;
 
     public bool isPlaced;
@@ -20,10 +20,10 @@ public class GhostItem : MonoBehaviour
         mRenderer = GetComponent<Renderer>();
         // We get them from the manager, because this way the referece always exists.
         semiTransparentMat = ConstructionManager.Instance.ghostSemiTransparentMat;
-        fullTransparentnMat = ConstructionManager.Instance.ghostFullTransparentMat;
+        fullTransparentMat = ConstructionManager.Instance.ghostFullTransparentMat;
         selectedMaterial = ConstructionManager.Instance.ghostSelectedMat;
 
-        mRenderer.material = semiTransparentMat; //change to semi if in debug else full
+        mRenderer.material = fullTransparentMat; //change to semi if in debug else full
         // We disable the solid box collider - while it is not yet placed
         // (unless we are in construction mode - see update method)
         solidCollider.enabled = false;
@@ -55,7 +55,7 @@ public class GhostItem : MonoBehaviour
         }
         else
         {
-            mRenderer.material = semiTransparentMat; //change to semi if in debug else full
+            mRenderer.material = fullTransparentMat; //change to semi if in debug else full
         }
     }
 }

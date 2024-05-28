@@ -11,7 +11,7 @@ public class Constructable : MonoBehaviour
     public bool detectedGhostMember;
 
     // Material related
-    private Renderer mRenderer;
+    public Renderer mRenderer;
     public Material redMaterial;
     public Material greenMaterial;
     public Material defaultMaterial;
@@ -24,6 +24,8 @@ public class Constructable : MonoBehaviour
     {
         mRenderer = GetComponent<Renderer>();
 
+        Debug.Log(gameObject.name + " - " + mRenderer.name + " started");
+
         mRenderer.material = defaultMaterial;
         foreach (Transform child in transform)
         {
@@ -33,7 +35,11 @@ public class Constructable : MonoBehaviour
     }
     void Update()
     {
-        transform.rotation = Quaternion.identity;
+        if (gameObject.name == "FoundationModel")
+        {
+            transform.rotation = Quaternion.identity;
+        }
+        
         if (isGrounded && isOverlappingItems == false)
         {
             isValidToBeBuilt = true;
@@ -98,6 +104,15 @@ public class Constructable : MonoBehaviour
 
     public void SetDefaultColor()
     {
+        if (mRenderer != null)
+        {
+            Debug.Log(gameObject.name + " - " + mRenderer.name);
+        }
+        else
+        {
+            Debug.Log(gameObject.name + " has no renderer");
+        }
+        
         mRenderer.material = defaultMaterial;
     }
 

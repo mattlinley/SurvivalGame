@@ -68,7 +68,7 @@ public class ConstructionManager : MonoBehaviour
 
         foreach (GameObject ghost in ghostlist)
         {
-            Debug.Log(ghost);
+            //Debug.Log(ghost);
             allGhostsInExistence.Add(ghost);
         }
     }
@@ -184,7 +184,9 @@ public class ConstructionManager : MonoBehaviour
                     selectingAGhost = true;
                     selectedGhost = selectionTransform.gameObject;
                 }
-                else if (selectionTransform.gameObject.CompareTag("wallGhost") && itemToBeConstructed.name == "WallModel")
+                else if (selectionTransform.gameObject.CompareTag("wallGhost")
+                         && itemToBeConstructed.name == "WallModel"
+                         && itemToBeConstructed.GetComponent<Constructable>().mRenderer != null) //want to make sure that the start method has run on the constructable BEFORE we disable it
                 {
                     itemToBeConstructed.SetActive(false);
                     selectingAGhost = true;
