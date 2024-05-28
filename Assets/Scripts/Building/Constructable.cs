@@ -33,6 +33,7 @@ public class Constructable : MonoBehaviour
     }
     void Update()
     {
+        transform.rotation = Quaternion.identity;
         if (isGrounded && isOverlappingItems == false)
         {
             isValidToBeBuilt = true;
@@ -48,6 +49,8 @@ public class Constructable : MonoBehaviour
         if (other.CompareTag("Ground") && gameObject.CompareTag("activeConstructable"))
         {
             isGrounded = true;
+
+            
         }
 
         if (other.CompareTag("Tree") || other.CompareTag("Pickable") && gameObject.CompareTag("activeConstructable"))

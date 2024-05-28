@@ -16,3 +16,7 @@ Assets/Downloaded/TerrainSampleAssets
 Assets/Polytope Studio
 Assets/FantasyEnvironments
 Assets/Rabbits
+Logs/
+Temp/
+obj/
+.vs/

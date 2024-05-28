@@ -69,7 +69,7 @@ public class PlaceableItem : MonoBehaviour
             isOverlappingItems = true;
         }
     }
-    #endregion
+    
 
     private void OnTriggerExit(Collider other)
     {
@@ -83,6 +83,8 @@ public class PlaceableItem : MonoBehaviour
             isOverlappingItems = false;
         }
     }
+    #endregion
+
 
     #region || --- Set Outline Colors --- |
     public void SetInvalidColor()
