@@ -11,6 +11,8 @@ public class GhostItem : MonoBehaviour
     private Material fullTransparentMat;
     private Material selectedMaterial;
 
+    public GameObject doorChild;
+
     public bool isPlaced;
 
     // A flag for the deletion algorithm
@@ -51,11 +53,28 @@ public class GhostItem : MonoBehaviour
         // Triggering the material
         if (ConstructionManager.Instance.selectedGhost == this.gameObject)
         {
-            mRenderer.material = selectedMaterial;
+            if (ConstructionManager.Instance.itemToBeConstructed.name == "DoorwayModel")
+            {
+                doorChild.SetActive(true);
+                //transform.GetChild(0).gameObject.GetComponent<Renderer>().material = ConstructionManager.Instance.ghostDoorSelectedMat;
+            }
+            else
+            {
+                mRenderer.material = selectedMaterial;
+            }
+            
         }
         else
         {
-            mRenderer.material = fullTransparentMat; //change to semi if in debug else full
+            if (doorChild != null && ConstructionManager.Instance.itemToBeConstructed != null && ConstructionManager.Instance.itemToBeConstructed.name == "DoorwayModel")
+            {
+                doorChild.SetActive(false);
+            }
+            else
+            {
+                mRenderer.material = fullTransparentMat; //change to semi if in debug else full
+            }
+                
         }
     }
 }

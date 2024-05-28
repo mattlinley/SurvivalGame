@@ -141,6 +141,14 @@ public class InventoryItem : MonoBehaviour, IPointerEnterHandler, IPointerExitHa
                 ConstructionManager.Instance.itemToBeDestroyed = gameObject;
                 ConstructionManager.Instance.ActivateConstructionPlacement("WallModel");
                 break;
+            case "Doorway(Clone)":
+                ConstructionManager.Instance.itemToBeDestroyed = gameObject;
+                ConstructionManager.Instance.ActivateConstructionPlacement("DoorwayModel");
+                break;
+            case "Doorway": //for testing
+                ConstructionManager.Instance.itemToBeDestroyed = gameObject;
+                ConstructionManager.Instance.ActivateConstructionPlacement("DoorwayModel");
+                break;
             case "StorageBox(Clone)":
                 PlacementSystem.Instance.inventoryItemToDestroy = gameObject;
                 PlacementSystem.Instance.ActivatePlacementMode("StorageBoxModel");

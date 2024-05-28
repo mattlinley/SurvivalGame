@@ -17,6 +17,7 @@ public class ConstructionManager : MonoBehaviour
 
     // Materials we store as refereces for the ghosts
     public Material ghostSelectedMat;
+    public Material ghostDoorSelectedMat;
     public Material ghostSemiTransparentMat; //for testing
     public Material ghostFullTransparentMat;
 
@@ -170,7 +171,10 @@ public class ConstructionManager : MonoBehaviour
             {
                 itemToBeConstructed.GetComponent<Constructable>().SetInvalidColor();
             }
-            
+            else if (itemToBeConstructed.name == "DoorwayModel")
+            {
+                itemToBeConstructed.GetComponent<Constructable>().SetInvalidColor();
+            }
 
 
             Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
@@ -186,6 +190,14 @@ public class ConstructionManager : MonoBehaviour
                 }
                 else if (selectionTransform.gameObject.CompareTag("wallGhost")
                          && itemToBeConstructed.name == "WallModel"
+                         && itemToBeConstructed.GetComponent<Constructable>().mRenderer != null) //want to make sure that the start method has run on the constructable BEFORE we disable it
+                {
+                    itemToBeConstructed.SetActive(false);
+                    selectingAGhost = true;
+                    selectedGhost = selectionTransform.gameObject;
+                }
+                else if (selectionTransform.gameObject.CompareTag("wallGhost")
+                         && itemToBeConstructed.name == "DoorwayModel"
                          && itemToBeConstructed.GetComponent<Constructable>().mRenderer != null) //want to make sure that the start method has run on the constructable BEFORE we disable it
                 {
                     itemToBeConstructed.SetActive(false);
@@ -246,11 +258,17 @@ public class ConstructionManager : MonoBehaviour
 
         var randomOffset = UnityEngine.Random.Range(0.01f, 0.03f);
 
-        itemToBeConstructed.transform.position = new Vector3(ghostPosition.x, ghostPosition.y, ghostPosition.z + randomOffset);
+        itemToBeConstructed.transform.position = new Vector3(ghostPosition.x + randomOffset, ghostPosition.y, ghostPosition.z + randomOffset);
         itemToBeConstructed.transform.rotation = ghostRotation;
 
+        
+
         // Enabling back the solider collider that we disabled earlier
-        itemToBeConstructed.GetComponent<Constructable>().solidCollider.enabled = true;
+        if (itemToBeConstructed.name != "DoorwayModel")
+        {
+            itemToBeConstructed.GetComponent<Constructable>().solidCollider.enabled = true;
+        }
+        
 
         // Setting the default color/material
         itemToBeConstructed.GetComponent<Constructable>().SetDefaultColor();
