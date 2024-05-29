@@ -173,7 +173,7 @@ public class NPC : MonoBehaviour
 
         string firstRequiredItem = currentActiveQuest.info.firstRequirementItem;
         int firstRequiredAmount = currentActiveQuest.info.firstRequirementAmount;
-
+        print(firstRequiredItem);
         var firstItemCounter = 0;
 
         foreach (string item in InventorySystem.Instance.itemList)
@@ -183,7 +183,7 @@ public class NPC : MonoBehaviour
                 firstItemCounter++;
             }
         }
-
+        print(firstItemCounter.ToString());
         
 
        
