@@ -83,7 +83,7 @@ Material:
     - _SmoothnessTextureChannel: 0
     - _SpecularHighlights: 1
     - _SrcBlend: 1
-    - _TransitionFactor: 0.31607282
+    - _TransitionFactor: 0.5036964
     - _UVSec: 0
     - _ZWrite: 1
     m_Colors:
