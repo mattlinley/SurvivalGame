@@ -30,12 +30,16 @@ public class PlaceableItem : MonoBehaviour
 
         // Raycast from the box's position towards its center
 
-        var boxHeight = transform.GetComponent<BoxCollider>().size.y; // transform.lossyScale.y;
-
+        //Height of box collider
+        var boxHeight = transform.GetComponent<BoxCollider>().size.y * transform.localScale.y;
 
         RaycastHit groundHit;
-        //Debug.Log(transform.GetComponent<BoxCollider>().size.y + "-" + transform.position.y);
-        if (Physics.Raycast(transform.position, Vector3.down, out groundHit, boxHeight * 0.5f, LayerMask.GetMask("Ground")))
+
+        //Find box collider center position. Need to take object position then add the box collider centre, adjusted for object scale
+        Vector3 boxColliderCenterPosition = transform.position + transform.GetComponent<BoxCollider>().center * transform.localScale.y;
+
+        //Then a raycast distance of half box height from box center will be the bottom of the object
+        if (Physics.Raycast(boxColliderCenterPosition, Vector3.down, out groundHit, boxHeight * 0.5f, LayerMask.GetMask("Ground")))
         {
             isGrounded = true;
         }

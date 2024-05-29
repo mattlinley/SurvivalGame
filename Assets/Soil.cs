@@ -54,6 +54,12 @@ public class Soil : MonoBehaviour
         {
             playerInRange = false;
         }
+
+        if (!isEmpty && !currentPlant.isWatered && WeatherSystem.Instance.currentWeather == WeatherSystem.WeatherCondition.Rainy)
+        {
+            MakeSoilWatered();
+            currentPlant.isWatered = true;
+        }
     }
 
 }

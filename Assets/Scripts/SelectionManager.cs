@@ -54,7 +54,6 @@ public class SelectionManager : MonoBehaviour
                             out hit))
         {
             var selectionTransform = hit.transform;
-
             
 
             
@@ -200,8 +199,8 @@ public class SelectionManager : MonoBehaviour
                 
             }
 
-            Soil soil = selectionTransform.GetComponent<Soil>();
-
+             Soil soil = selectionTransform.GetComponentInChildren<Soil>();
+           // Soil soil = selectionTransform.GetComponent<Soil>();
             if (soil && soil.playerInRange)
             {
                 if (soil.isEmpty && EquipSystem.Instance.IsHoldingSeed())
@@ -212,8 +211,8 @@ public class SelectionManager : MonoBehaviour
                     if (Input.GetMouseButtonDown(0))
                     {
                         soil.PlantSeed();
-                        Destroy(EquipSystem.Instance.selectedItem);
-                        Destroy(EquipSystem.Instance.selectedItemModel);
+                        //Destroy(EquipSystem.Instance.selectedItem);
+                        //Destroy(EquipSystem.Instance.selectedItemModel);
                         EquipSystem.Instance.SelectQuickSlot(EquipSystem.Instance.selectedNumber);
                     }
                 }

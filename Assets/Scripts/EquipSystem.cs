@@ -156,6 +156,12 @@ public class EquipSystem : MonoBehaviour
         selectedItemModel = Instantiate(Resources.Load<GameObject>(CalculateItemModel(selectedItemName)));
         selectedItemModel.transform.SetParent(toolHolder.transform,
                                       false);
+        if (selectedItemName == "WateringCan" || selectedItemName == "Axe")
+        {
+            //disable box collider for gravity enabled items (ones that you can drop and pick up)
+            selectedItemModel.transform.GetComponent<BoxCollider>().enabled = false;
+        }
+        
     }
 
     private string CalculateItemModel(string selectedItemName)

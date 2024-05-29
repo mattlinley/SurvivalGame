@@ -57,8 +57,8 @@ public class DragDrop : MonoBehaviour, IBeginDragHandler, IEndDragHandler, IDrag
 
         if (transform.parent == startParent || transform.parent == transform.root)
         {
-            //don't want to drop placeable items
-            if (!tempItemReference.GetComponent<InventoryItem>().isUsable)
+            //don't want to drop placeable items or seeds
+            if (!tempItemReference.GetComponent<InventoryItem>().isUsable && tempItemReference.name!="TomatoSeed" && tempItemReference.name != "PumpkinSeed")
             {
 
                 //drop item into world
@@ -104,7 +104,7 @@ public class DragDrop : MonoBehaviour, IBeginDragHandler, IEndDragHandler, IDrag
         
         Debug.Log(tempItemReference.name.Replace("(Clone)", "") + "_Model");
         item.transform.position = Vector3.zero;
-        var dropSpawnPosition = PlayerState.Instance.playerBody.transform.Find("DropSpawn").transform.position;
+        var dropSpawnPosition = PlayerState.Instance.playerBody.transform.Find("Main Camera").transform.Find("DropSpawn").transform.position;
         item.transform.localPosition = new Vector3(dropSpawnPosition.x, dropSpawnPosition.y, dropSpawnPosition.z);
         Debug.Log(dropSpawnPosition.x.ToString());
 
