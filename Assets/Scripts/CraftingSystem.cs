@@ -15,8 +15,8 @@ public class CraftingSystem : MonoBehaviour
     public List<string> inventoryItemList = new List<string>();
 
     Button toolsBTN, survivalBTN, refineBTN, constructionBTN;
-    Button craftAxeBTN, craftPlankBTN, craftFoundationBTN, craftWallBTN, craftStorageBoxBTN;
-    Text AxeReq1, AxeReq2, PlankReq1, FoundationReq1, WallReq1, StorageBoxReq1;
+    Button craftAxeBTN, craftPlankBTN, craftFoundationBTN, craftWallBTN, craftStorageBoxBTN, craftDoorwayBTN, craftCampfireBTN;
+    Text AxeReq1, AxeReq2, PlankReq1, FoundationReq1, WallReq1, DoorwayReq1, StorageBoxReq1, CampfireReq1, CampfireReq2;
 
     public bool isOpen;
 
@@ -25,8 +25,9 @@ public class CraftingSystem : MonoBehaviour
     public Blueprint PlankBLP = new Blueprint("Plank", 2, 1, "Log", 1, "", 0);
     public Blueprint FoundationBLP = new Blueprint("Foundation", 1, 1, "Plank", 4, "", 0);
     public Blueprint WallBLP = new Blueprint("Wall", 1, 1, "Plank", 2, "", 0);
+    public Blueprint DoorwayBLP = new Blueprint("Doorway", 1, 1, "Plank", 2, "", 0);
     public Blueprint StorageBoxBLP = new Blueprint("StorageBox", 1, 1, "Plank", 2, "", 0);
-
+    public Blueprint CampfireBLP = new Blueprint("Campfire", 1, 2, "Stick", 2, "Stone", 4);
 
     public static CraftingSystem Instance { get; set; }
 
@@ -80,10 +81,21 @@ public class CraftingSystem : MonoBehaviour
         craftWallBTN = constructionScreenUI.transform.Find("Wall").transform.Find("Button").GetComponent<Button>();
         craftWallBTN.onClick.AddListener(delegate { CraftAnyItem(WallBLP); });
 
+        //Doorway
+        DoorwayReq1 = constructionScreenUI.transform.Find("Doorway").transform.Find("Req1").GetComponent<Text>();
+        craftDoorwayBTN = constructionScreenUI.transform.Find("Doorway").transform.Find("Button").GetComponent<Button>();
+        craftDoorwayBTN.onClick.AddListener(delegate { CraftAnyItem(DoorwayBLP); });
+
         //Storage Box
         StorageBoxReq1 = survivalScreenUI.transform.Find("StorageBox").transform.Find("Req1").GetComponent<Text>();
         craftStorageBoxBTN = survivalScreenUI.transform.Find("StorageBox").transform.Find("Button").GetComponent<Button>();
         craftStorageBoxBTN.onClick.AddListener(delegate { CraftAnyItem(StorageBoxBLP); });
+
+        //Campfire
+        CampfireReq1 = survivalScreenUI.transform.Find("Campfire").transform.Find("Req1").GetComponent<Text>();
+        CampfireReq2 = survivalScreenUI.transform.Find("Campfire").transform.Find("Req2").GetComponent<Text>();
+        craftCampfireBTN = survivalScreenUI.transform.Find("Campfire").transform.Find("Button").GetComponent<Button>();
+        craftCampfireBTN.onClick.AddListener(delegate { CraftAnyItem(CampfireBLP); });
     }
 
     private void CraftAnyItem(Blueprint blueprintToCraft)
@@ -163,6 +175,19 @@ public class CraftingSystem : MonoBehaviour
             craftAxeBTN.gameObject.SetActive(false);
         }
 
+        // CAMPFIRE
+        CampfireReq1.text = "2 Stick [" + stick_count + "]";
+        CampfireReq2.text = "4 Stone [" + stone_count + "]";
+
+        if (stone_count >= 4 && stick_count >= 2)
+        {
+            craftCampfireBTN.gameObject.SetActive(true);
+        }
+        else
+        {
+            craftCampfireBTN.gameObject.SetActive(false);
+        }
+
         //PLANK
         PlankReq1.text = "1 Log [" + log_count + "]";
 
@@ -197,6 +222,18 @@ public class CraftingSystem : MonoBehaviour
         else
         {
             craftWallBTN.gameObject.SetActive(false);
+        }
+
+        //DOORWAY
+        DoorwayReq1.text = "2 Plank [" + plank_count + "]";
+
+        if (plank_count >= 2)
+        {
+            craftDoorwayBTN.gameObject.SetActive(true);
+        }
+        else
+        {
+            craftDoorwayBTN.gameObject.SetActive(false);
         }
 
         //STORAGE BOX

@@ -19,3 +19,9 @@ MonoBehaviour:
   - name: Raw Meat
     timeToCook: 10
     cookedFoodName: CookedMeat
+  - name: Salmon
+    timeToCook: 10
+    cookedFoodName: SalmonCooked
+  - name: Tuna
+    timeToCook: 10
+    cookedFoodName: TunaCooked
