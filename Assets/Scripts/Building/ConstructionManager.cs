@@ -27,6 +27,7 @@ public class ConstructionManager : MonoBehaviour
 
     public GameObject itemToBeDestroyed;
     public GameObject constuctionModeUI;
+    public GameObject placeablesGroup;
 
 
     public GameObject player;
@@ -290,11 +291,12 @@ public class ConstructionManager : MonoBehaviour
         }
 
 
-        
 
-        
+        //Move Model to placeables
+        itemToBeConstructed.transform.SetParent(placeablesGroup.transform, true);
 
-        
+
+
 
         itemToBeConstructed = null;
 
@@ -323,6 +325,9 @@ public class ConstructionManager : MonoBehaviour
         itemToBeConstructed.GetComponent<Constructable>().enabled = false;
         // Enabling back the solider collider that we disabled earlier
         itemToBeConstructed.GetComponent<Constructable>().solidCollider.enabled = true;
+
+        //Move Model to placeables
+        itemToBeConstructed.transform.SetParent(placeablesGroup.transform, true);
 
         //Adding all the ghosts of this item into the manager's ghost bank
         GetAllGhosts(itemToBeConstructed);

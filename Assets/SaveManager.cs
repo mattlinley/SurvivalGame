@@ -145,6 +145,7 @@ public class SaveManager : MonoBehaviour
         //Get information about storage boxes in the scene
         List<StorageData> allStorage = new List<StorageData>();
         List<CampfireData> allCampfires = new List<CampfireData>();
+        List<ConstructionData> allConstructions = new List<ConstructionData>();
 
         foreach (Transform placeable in EnvironmentManager.Instance.allPlaceables.transform)
         {
@@ -169,9 +170,20 @@ public class SaveManager : MonoBehaviour
 
                 allCampfires.Add(cd);
             }
+
+            //construction
+            if (placeable.name == "FoundationModel" || placeable.name == "DoorwayModel" || placeable.name == "WallModel")
+            {
+                var cd = new ConstructionData();
+                cd.name = placeable.name;
+                cd.position = placeable.position;
+                cd.rotation = new Vector3(placeable.eulerAngles.x, placeable.eulerAngles.y, placeable.eulerAngles.z);
+
+                allConstructions.Add(cd);
+            }
         }
 
-        return new EnvironmentData(itemsPickedup, treesToSave, allAnimals, allStorage, timeData, allNpcs, trackedQuests, allCampfires);
+        return new EnvironmentData(itemsPickedup, treesToSave, allAnimals, allStorage, timeData, allNpcs, trackedQuests, allCampfires, allConstructions);
     }
 
     private PlayerData GetPlayerData()
@@ -385,6 +397,16 @@ public class SaveManager : MonoBehaviour
             campfirePrefab.transform.SetParent(EnvironmentManager.Instance.allPlaceables.transform);
             campfirePrefab.GetComponent<Campfire>().itemInFoodSlot = campfire.food;
             campfirePrefab.GetComponent<Campfire>().itemInFuelSlot = campfire.fuel;
+        }
+
+        //add construction items
+        foreach (ConstructionData construction in environmentData.constructions)
+        {
+            var constructionPrefab = Instantiate(Resources.Load<GameObject>(construction.name),
+                                                 new Vector3(construction.position.x, construction.position.y, construction.position.z),
+                                                 Quaternion.Euler(construction.rotation.x, construction.rotation.y, construction.rotation.z));
+            constructionPrefab.transform.SetParent(EnvironmentManager.Instance.allPlaceables.transform);
+            constructionPrefab.name = construction.name;
         }
     }
 
