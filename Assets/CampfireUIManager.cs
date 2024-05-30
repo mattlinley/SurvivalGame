@@ -51,11 +51,56 @@ public class CampfireUIManager : MonoBehaviour
         SelectionManager.Instance.DisableSelection();
         SelectionManager.Instance.GetComponent<SelectionManager>().enabled = false;
 
+        var fuelSlot = campfirePanel.transform.Find("Fuel_Slot");
+        var foodSlot = campfirePanel.transform.Find("Food_Slot");
+
+        //load any items in slots
+        if (selectedCampfire.itemInFuelSlot != "")
+        {
+            var itemToAdd = Instantiate(Resources.Load<GameObject>(selectedCampfire.itemInFuelSlot), fuelSlot.transform.position, fuelSlot.transform.rotation);
+
+            itemToAdd.name = selectedCampfire.itemInFuelSlot;
+
+            itemToAdd.transform.SetParent(fuelSlot.transform);
+        }
+        if (selectedCampfire.itemInFoodSlot != "")
+        {
+            var itemToAdd = Instantiate(Resources.Load<GameObject>(selectedCampfire.itemInFoodSlot), foodSlot.transform.position, fuelSlot.transform.rotation);
+
+            itemToAdd.name = selectedCampfire.itemInFoodSlot;
+
+            itemToAdd.transform.SetParent(foodSlot.transform);
+        }
+
         InventorySystem.Instance.OpenUI();
     }
 
     public void CloseUI()
     {
+        var tempSlot = campfirePanel.transform.Find("Fuel_Slot");
+        if (tempSlot.childCount > 0)
+        {
+            selectedCampfire.itemInFuelSlot = tempSlot.GetChild(0).name;
+            Destroy(tempSlot.GetChild(0).gameObject);
+        } 
+        else
+        {
+            selectedCampfire.itemInFuelSlot = "";
+        }
+        
+
+        tempSlot = campfirePanel.transform.Find("Food_Slot");
+        if (tempSlot.childCount > 0)
+        {
+            selectedCampfire.itemInFoodSlot = tempSlot.GetChild(0).name;
+            Destroy(tempSlot.GetChild(0).gameObject);
+        }
+        else
+        {
+            selectedCampfire.itemInFoodSlot = "";
+        }
+        
+
         campfirePanel?.SetActive(false);
         isUIOpen = false;
 
@@ -118,5 +163,10 @@ public class CampfireUIManager : MonoBehaviour
 
         CloseUI();
 
+    }
+
+    public void closeFire ()
+    {
+        
     }
 }

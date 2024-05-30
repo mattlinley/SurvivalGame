@@ -14,6 +14,8 @@ public class EnvironmentData
 
     public List<StorageData> storage;
 
+    public List<CampfireData> campfires;
+
     public TimeData timeData;
 
     public List<NpcData> npcData;
@@ -26,7 +28,8 @@ public class EnvironmentData
                            List<StorageData> _storage,
                            TimeData _timeData,
                            List<NpcData> _npcData,
-                           List<Quest> _trackedQuests)
+                           List<Quest> _trackedQuests,
+                           List<CampfireData> _campfires)
     {
         pickedupItems = _pickedupItems;
         treeData = _treeData;
@@ -35,6 +38,7 @@ public class EnvironmentData
         timeData = _timeData;
         npcData = _npcData;
         trackedQuests = _trackedQuests;
+        campfires = _campfires;
     }
 
 }
@@ -56,6 +60,16 @@ public class StorageData
     public Vector3 position;
     public Vector3 rotation;
 }
+
+[System.Serializable]
+public class CampfireData
+{
+    public string fuel;
+    public string food;
+    public Vector3 position;
+    public Vector3 rotation;
+}
+
 
 [System.Serializable]
 public class TimeData

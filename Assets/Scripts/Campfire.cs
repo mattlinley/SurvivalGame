@@ -15,6 +15,9 @@ public class Campfire : MonoBehaviour
 
     public GameObject fire;
 
+    public string itemInFuelSlot;
+    public string itemInFoodSlot;
+
     private void Update()
     {
         float distance = Vector3.Distance(PlayerState.Instance.playerBody.transform.position, transform.position);
@@ -49,8 +52,9 @@ public class Campfire : MonoBehaviour
 
     public void OpenUI()
     {
-        CampfireUIManager.Instance.OpenUI();
         CampfireUIManager.Instance.selectedCampfire = this;
+        CampfireUIManager.Instance.OpenUI();
+        
 
         if (readyFood != "")
         {

@@ -144,6 +144,8 @@ public class SaveManager : MonoBehaviour
 
         //Get information about storage boxes in the scene
         List<StorageData> allStorage = new List<StorageData>();
+        List<CampfireData> allCampfires = new List<CampfireData>();
+
         foreach (Transform placeable in EnvironmentManager.Instance.allPlaceables.transform)
         {
             if (placeable.gameObject.GetComponent<StorageBox>())
@@ -151,13 +153,25 @@ public class SaveManager : MonoBehaviour
                 var sd = new StorageData();
                 sd.items = placeable.gameObject.GetComponent<StorageBox>().items;
                 sd.position = placeable.position;
-                sd.rotation = new Vector3(placeable.rotation.x, placeable.rotation.y, placeable.rotation.z);
+                sd.rotation = new Vector3(placeable.eulerAngles.x, placeable.eulerAngles.y, placeable.eulerAngles.z);
 
                 allStorage.Add(sd);
             }
+
+            //campfires
+            if (placeable.gameObject.GetComponent<Campfire>())
+            {
+                var cd = new CampfireData();
+                cd.food = placeable.gameObject.GetComponent<Campfire>().itemInFoodSlot;
+                cd.fuel = placeable.gameObject.GetComponent<Campfire>().itemInFuelSlot;
+                cd.position = placeable.position;
+                cd.rotation = new Vector3(placeable.eulerAngles.x, placeable.eulerAngles.y, placeable.eulerAngles.z);
+
+                allCampfires.Add(cd);
+            }
         }
 
-        return new EnvironmentData(itemsPickedup, treesToSave, allAnimals, allStorage, timeData, allNpcs, trackedQuests);
+        return new EnvironmentData(itemsPickedup, treesToSave, allAnimals, allStorage, timeData, allNpcs, trackedQuests, allCampfires);
     }
 
     private PlayerData GetPlayerData()
@@ -360,6 +374,17 @@ public class SaveManager : MonoBehaviour
                                                Quaternion.Euler(storage.rotation.x, storage.rotation.y, storage.rotation.z));
             storageBoxPrefab.transform.SetParent(EnvironmentManager.Instance.allPlaceables.transform);
             storageBoxPrefab.GetComponent<StorageBox>().items = storage.items;
+        }
+
+        //add campfires
+        foreach (CampfireData campfire in environmentData.campfires)
+        {
+            var campfirePrefab = Instantiate(Resources.Load<GameObject>("CampfireModel"),
+                                             new Vector3(campfire.position.x, campfire.position.y, campfire.position.z),
+                                             Quaternion.Euler(campfire.rotation.x, campfire.rotation.y, campfire.rotation.z));
+            campfirePrefab.transform.SetParent(EnvironmentManager.Instance.allPlaceables.transform);
+            campfirePrefab.GetComponent<Campfire>().itemInFoodSlot = campfire.food;
+            campfirePrefab.GetComponent<Campfire>().itemInFuelSlot = campfire.fuel;
         }
     }
 
