@@ -9,19 +9,19 @@ public class Plant : MonoBehaviour
     [SerializeField] public GameObject youngPlantModel;
     [SerializeField] public GameObject maturePlantModel;
 
-    [SerializeField] List<GameObject> plantProduceSpawns;
+    public List<GameObject> plantProduceSpawns;
 
-    [SerializeField] GameObject producePrefab;
+    public GameObject producePrefab;
 
     public int dayOfPlanting;
-    [SerializeField] int plantAge = 0;
+    public int plantAge = 0;
 
     [SerializeField] int ageForYoungModel;
     [SerializeField] int ageForMatureModel;
     [SerializeField] int ageForFirstProduceBatch;
 
     [SerializeField] int daysForNewProduce;
-    [SerializeField] int daysRemainingForNewProduce;
+    public int daysRemainingForNewProduce;
 
     [SerializeField] bool isOneTimeHarvest;
     public bool isWatered;
@@ -52,7 +52,7 @@ public class Plant : MonoBehaviour
         
     }
 
-    private void CheckGrowth()
+    public void CheckGrowth()
     {
         seedModel.SetActive(plantAge < ageForYoungModel);
         youngPlantModel.SetActive(plantAge >= ageForYoungModel && plantAge <= ageForMatureModel);

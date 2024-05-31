@@ -211,8 +211,7 @@ public class SelectionManager : MonoBehaviour
                     if (Input.GetMouseButtonDown(0))
                     {
                         soil.PlantSeed();
-                        //Destroy(EquipSystem.Instance.selectedItem);
-                        //Destroy(EquipSystem.Instance.selectedItemModel);
+                        //Deselect hand model
                         EquipSystem.Instance.SelectQuickSlot(EquipSystem.Instance.selectedNumber);
                     }
                 }

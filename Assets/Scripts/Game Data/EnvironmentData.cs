@@ -18,6 +18,8 @@ public class EnvironmentData
 
     public List<ConstructionData> constructions;
 
+    public List<PlanterData> planters;
+
     public TimeData timeData;
 
     public List<NpcData> npcData;
@@ -32,7 +34,8 @@ public class EnvironmentData
                            List<NpcData> _npcData,
                            List<Quest> _trackedQuests,
                            List<CampfireData> _campfires,
-                           List<ConstructionData> _constructions)
+                           List<ConstructionData> _constructions,
+                           List<PlanterData> _planters)
     {
         pickedupItems = _pickedupItems;
         treeData = _treeData;
@@ -43,6 +46,7 @@ public class EnvironmentData
         trackedQuests = _trackedQuests;
         campfires = _campfires;
         constructions = _constructions;
+        planters = _planters;
     }
 
 }
@@ -70,6 +74,20 @@ public class CampfireData
 {
     public string fuel;
     public string food;
+    public Vector3 position;
+    public Vector3 rotation;
+}
+
+[System.Serializable]
+public class PlanterData
+{
+    public bool isPlanted;
+    public bool isWatered;
+    public string plantName;
+    public int plantAge;
+    public int daysRemainingForNewProduce;
+    public int dayOfPlanting;
+    public List<bool> produceSpawns; //can't use a queue here because it will not convert to Json
     public Vector3 position;
     public Vector3 rotation;
 }

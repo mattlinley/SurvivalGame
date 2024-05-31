@@ -15,6 +15,7 @@ TagManager:
   - wallGhost
   - placedWall
   - FishingArea
+  - plant
   layers:
   - Default
   - TransparentFX

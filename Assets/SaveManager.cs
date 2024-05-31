@@ -146,6 +146,7 @@ public class SaveManager : MonoBehaviour
         List<StorageData> allStorage = new List<StorageData>();
         List<CampfireData> allCampfires = new List<CampfireData>();
         List<ConstructionData> allConstructions = new List<ConstructionData>();
+        List<PlanterData> allPlanters = new List<PlanterData>();
 
         foreach (Transform placeable in EnvironmentManager.Instance.allPlaceables.transform)
         {
@@ -181,9 +182,52 @@ public class SaveManager : MonoBehaviour
 
                 allConstructions.Add(cd);
             }
+
+            //planters
+            if (placeable.gameObject.GetComponent<Soil>())
+            {
+                var pd = new PlanterData();
+                if (placeable.gameObject.GetComponent<Soil>().isEmpty)
+                {
+                    pd.isPlanted = false;
+                } else
+                {
+                    pd.isPlanted= true;
+                    // find plant object by checking tags of children
+                    foreach (Transform child in placeable.transform)
+                    {
+                        if (child.tag == "plant")
+                        {
+                            pd.plantName = child.name.Replace("(Clone)", "");
+                            pd.plantAge = child.GetComponent<Plant>().plantAge;
+                            pd.daysRemainingForNewProduce = child.GetComponent<Plant>().daysRemainingForNewProduce;
+                            pd.isWatered = child.GetComponent<Plant>().isWatered;
+                            pd.dayOfPlanting = child.GetComponent<Plant>().dayOfPlanting;
+                            List<bool> spawnFull = new List<bool>();
+
+                            foreach (GameObject produceSpawn in child.GetComponent<Plant>().plantProduceSpawns)
+                            {
+                                if (produceSpawn.transform.childCount > 0)
+                                {
+                                    spawnFull.Add(true);
+                                } else
+                                {
+                                    spawnFull.Add(false);
+                                }
+                            }
+                            pd.produceSpawns = spawnFull;
+                        }
+                    }
+                }
+
+                pd.position = placeable.position;
+                pd.rotation = new Vector3(placeable.eulerAngles.x, placeable.eulerAngles.y, placeable.eulerAngles.z);
+
+                allPlanters.Add(pd);
+            }
         }
 
-        return new EnvironmentData(itemsPickedup, treesToSave, allAnimals, allStorage, timeData, allNpcs, trackedQuests, allCampfires, allConstructions);
+        return new EnvironmentData(itemsPickedup, treesToSave, allAnimals, allStorage, timeData, allNpcs, trackedQuests, allCampfires, allConstructions, allPlanters);
     }
 
     private PlayerData GetPlayerData()
@@ -407,6 +451,67 @@ public class SaveManager : MonoBehaviour
                                                  Quaternion.Euler(construction.rotation.x, construction.rotation.y, construction.rotation.z));
             constructionPrefab.transform.SetParent(EnvironmentManager.Instance.allPlaceables.transform);
             constructionPrefab.name = construction.name;
+        }
+
+        //add planters
+        foreach (PlanterData planter in environmentData.planters)
+        {
+            var planterPrefab = Instantiate(Resources.Load<GameObject>("Planter_Model"),
+                                            new Vector3(planter.position.x, planter.position.y, planter.position.z),
+                                            Quaternion.Euler(planter.rotation.x, planter.rotation.y, planter.rotation.z));
+            planterPrefab.transform.SetParent(EnvironmentManager.Instance.allPlaceables.transform);
+            planterPrefab.name = "PlanterModel";
+
+            if (planter.isPlanted)
+            {
+                //add plant
+                //instantiate plant prefab
+                GameObject instantiatedPlant = Instantiate(Resources.Load(planter.plantName) as GameObject);
+                instantiatedPlant.transform.SetParent(planterPrefab.transform);
+                instantiatedPlant.transform.localPosition = Vector3.zero;
+                planterPrefab.GetComponent<Soil>().currentPlant = instantiatedPlant.GetComponent<Plant>();
+                instantiatedPlant.GetComponent<Plant>().dayOfPlanting = planter.dayOfPlanting;
+
+                //mark soil as occupied
+                planterPrefab.GetComponent<Soil>().isEmpty = false;
+
+                //set plant name
+                planterPrefab.GetComponent<Soil>().plantName = planter.plantName;
+
+                if (planter.isWatered)
+                {
+                    instantiatedPlant.GetComponent<Plant>().isWatered = true; //set bool
+                    planterPrefab.GetComponent<Soil>().MakeSoilWatered(); //change texture
+                }
+
+                //set plant age
+                instantiatedPlant.GetComponent<Plant>().plantAge = planter.plantAge;
+                instantiatedPlant.GetComponent<Plant>().daysRemainingForNewProduce = planter.daysRemainingForNewProduce;
+
+                //update model to current position
+                instantiatedPlant.GetComponent<Plant>().CheckGrowth();
+
+                int i = 0;
+
+                //add any produce spawns
+                foreach (GameObject spawn in instantiatedPlant.GetComponent<Plant>().plantProduceSpawns)
+                {
+
+                    if (planter.produceSpawns[i++])
+                    {
+                        //Instantiate the produce from the prefab
+                        GameObject produce = Instantiate(instantiatedPlant.GetComponent<Plant>().producePrefab);
+
+                        //Set produce to be a child of current spawn
+                        produce.transform.SetParent(spawn.transform);
+
+                        //Set position
+                        produce.transform.localPosition = Vector3.zero;
+                    }
+                }
+
+
+            }
         }
     }
 
