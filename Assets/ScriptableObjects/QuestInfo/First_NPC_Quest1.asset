@@ -52,13 +52,14 @@ MonoBehaviour:
   comebackAfterDeclineClip: {fileID: 8300000, guid: 3856c60ec3264a74bb5fd849c55a634a, type: 3}
   comebackInProgress: I still need more rabbit hides.
   comebackInProgressClip: {fileID: 8300000, guid: b944c1d6009b04c40aa9c3ec3bae89f7, type: 3}
-  comebackCompleted: Thank you! Here, take this fishing rod, I never use it.
-  comebackCompletedClip: {fileID: 8300000, guid: 2ec0cd7c890d8c4449371530ab85cc35, type: 3}
+  comebackCompleted: Thank you! Here, take this fishing rod and watering can, I never
+    use them.
+  comebackCompletedClip: {fileID: 8300000, guid: 9b4cd67055958484ba8aca84c00daf16, type: 3}
   finalWords: I'm sure my father will be happy.
   finalWordsClip: {fileID: 8300000, guid: 98a67c0dae8159047a0014e1bc348fbd, type: 3}
   coinReward: 25
   rewardItem1: FishingRod
-  rewardItem2: 
+  rewardItem2: WateringCan
   firstRequirementItem: RabbitHide
   firstRequirementAmount: 4
   secondRequirementItem: 

@@ -114,7 +114,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ee703fcea35860247bb433e825382de1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  isTrashable: 1
+  isTrashable: 0
   thisName: Tomato Seed
   thisDescription: 
   thisFunctionality: 

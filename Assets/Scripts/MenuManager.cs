@@ -36,7 +36,7 @@ public class MenuManager : MonoBehaviour
 
     private void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Escape) || Input.GetKeyDown(KeyCode.M) && !isMenuOpen)
+        if (Input.GetKeyDown(KeyCode.M) && !isMenuOpen)
         {
             uiCanvas.SetActive(false);
             menuCanvas.SetActive(true);
