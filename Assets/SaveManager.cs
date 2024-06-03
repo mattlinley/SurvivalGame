@@ -312,7 +312,10 @@ public class SaveManager : MonoBehaviour
         isLoading = false;
 
         DisableLoadingScreen();
+
     }
+
+
 
     private void SetEnvironmentData(EnvironmentData environmentData)
     {

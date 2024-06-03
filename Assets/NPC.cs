@@ -24,6 +24,9 @@ public class NPC : MonoBehaviour
     public bool firstTimeInteraction = true;
     public int currentDialog;
 
+    public Animator animator;
+    public bool isTalking = false;
+
 
     private void Start()
     {
@@ -35,11 +38,37 @@ public class NPC : MonoBehaviour
         optionButton2 = DialogSystem.Instance.option2Button;
         optionButton2Text = DialogSystem.Instance.option2Button.transform.Find("Text (TMP)").GetComponent<TextMeshProUGUI>();
 
+        animator = GetComponent<Animator>();
+    }
+
+    public void startTalking()
+    {
+        animator.SetBool("isTalking", true);
+        isTalking = true;
+    }
+
+    public void stopTalking()
+    {
+        animator.SetBool("isTalking", false);
+        isTalking= false;
+    }
+
+    private void Update()
+    {
+        if (SoundManager.Instance.isTalking && !isTalking)
+        {
+            startTalking();
+        }
+        if (!SoundManager.Instance.isTalking && isTalking)
+        {
+            stopTalking();
+        }
     }
 
 
     public void StartConversation()
     {
+
         isTalkingWithPlayer = true;
 
         LookAtPlayer();

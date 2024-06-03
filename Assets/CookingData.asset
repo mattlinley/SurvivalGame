@@ -15,6 +15,7 @@ MonoBehaviour:
   validFuels:
   - Log
   - Stick
+  - Plank
   validFoods:
   - name: Raw Meat
     timeToCook: 10

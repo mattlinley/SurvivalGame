@@ -15,8 +15,8 @@ public class CraftingSystem : MonoBehaviour
     public List<string> inventoryItemList = new List<string>();
 
     Button toolsBTN, survivalBTN, refineBTN, constructionBTN;
-    Button craftAxeBTN, craftPlankBTN, craftFoundationBTN, craftWallBTN, craftStorageBoxBTN, craftDoorwayBTN, craftCampfireBTN;
-    Text AxeReq1, AxeReq2, PlankReq1, FoundationReq1, WallReq1, DoorwayReq1, StorageBoxReq1, CampfireReq1, CampfireReq2;
+    Button craftAxeBTN, craftPlankBTN, craftFoundationBTN, craftWallBTN, craftStorageBoxBTN, craftDoorwayBTN, craftCampfireBTN,craftPlanterBTN;
+    Text AxeReq1, AxeReq2, PlankReq1, FoundationReq1, WallReq1, DoorwayReq1, StorageBoxReq1, CampfireReq1, CampfireReq2, PlanterReq1;
 
     public bool isOpen;
 
@@ -28,6 +28,7 @@ public class CraftingSystem : MonoBehaviour
     public Blueprint DoorwayBLP = new Blueprint("Doorway", 1, 1, "Plank", 2, "", 0);
     public Blueprint StorageBoxBLP = new Blueprint("StorageBox", 1, 1, "Plank", 2, "", 0);
     public Blueprint CampfireBLP = new Blueprint("Campfire", 1, 2, "Stick", 2, "Stone", 4);
+    public Blueprint PlanterBLP = new Blueprint("Planter", 1, 1, "Plank", 2, "", 0);
 
     public static CraftingSystem Instance { get; set; }
 
@@ -96,6 +97,11 @@ public class CraftingSystem : MonoBehaviour
         CampfireReq2 = survivalScreenUI.transform.Find("Campfire").transform.Find("Req2").GetComponent<Text>();
         craftCampfireBTN = survivalScreenUI.transform.Find("Campfire").transform.Find("Button").GetComponent<Button>();
         craftCampfireBTN.onClick.AddListener(delegate { CraftAnyItem(CampfireBLP); });
+
+        //Planter
+        PlanterReq1 = survivalScreenUI.transform.Find("Planter").transform.Find("Req1").GetComponent<Text>();
+        craftPlanterBTN = survivalScreenUI.transform.Find("Planter").transform.Find("Button").GetComponent<Button>();
+        craftPlanterBTN.onClick.AddListener(delegate { CraftAnyItem(PlanterBLP); });
     }
 
     private void CraftAnyItem(Blueprint blueprintToCraft)
@@ -246,6 +252,18 @@ public class CraftingSystem : MonoBehaviour
         else
         {
             craftStorageBoxBTN.gameObject.SetActive(false);
+        }
+
+        //PLANTER
+        PlanterReq1.text = "2 Plank [" + plank_count + "]";
+
+        if (plank_count >= 2)
+        {
+            craftPlanterBTN.gameObject.SetActive(true);
+        }
+        else
+        {
+            craftPlanterBTN.gameObject.SetActive(false);
         }
     }
 

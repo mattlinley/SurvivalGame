@@ -81,7 +81,7 @@ public class CampfireUIManager : MonoBehaviour
         if (tempSlot.childCount > 0)
         {
             selectedCampfire.itemInFuelSlot = tempSlot.GetChild(0).name;
-            Destroy(tempSlot.GetChild(0).gameObject);
+            DestroyImmediate(tempSlot.GetChild(0).gameObject);
         } 
         else
         {
@@ -93,7 +93,7 @@ public class CampfireUIManager : MonoBehaviour
         if (tempSlot.childCount > 0)
         {
             selectedCampfire.itemInFoodSlot = tempSlot.GetChild(0).name;
-            Destroy(tempSlot.GetChild(0).gameObject);
+            DestroyImmediate(tempSlot.GetChild(0).gameObject);
         }
         else
         {

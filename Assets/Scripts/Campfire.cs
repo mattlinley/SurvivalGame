@@ -52,8 +52,7 @@ public class Campfire : MonoBehaviour
 
     public void OpenUI()
     {
-        CampfireUIManager.Instance.selectedCampfire = this;
-        CampfireUIManager.Instance.OpenUI();
+        
         
 
         if (readyFood != "")
@@ -63,8 +62,14 @@ public class Campfire : MonoBehaviour
                                         CampfireUIManager.Instance.foodSlot.transform.rotation);
             rf.transform.SetParent(CampfireUIManager.Instance.foodSlot.transform);
 
+            itemInFoodSlot = readyFood;
+            itemInFuelSlot = "";
+
             readyFood = "";
         }
+
+        CampfireUIManager.Instance.selectedCampfire = this;
+        CampfireUIManager.Instance.OpenUI();
     }
 
     public void StartCooking(InventoryItem food)
