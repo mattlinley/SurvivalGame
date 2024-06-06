@@ -57,10 +57,10 @@ public class Campfire : MonoBehaviour
 
         if (readyFood != "")
         {
-            GameObject rf = Instantiate(Resources.Load<GameObject>(readyFood),
-                                        CampfireUIManager.Instance.foodSlot.transform.position,
-                                        CampfireUIManager.Instance.foodSlot.transform.rotation);
-            rf.transform.SetParent(CampfireUIManager.Instance.foodSlot.transform);
+            //GameObject rf = Instantiate(Resources.Load<GameObject>(readyFood),
+            //                            CampfireUIManager.Instance.foodSlot.transform.position,
+            //                            CampfireUIManager.Instance.foodSlot.transform.rotation);
+            //rf.transform.SetParent(CampfireUIManager.Instance.foodSlot.transform);
 
             itemInFoodSlot = readyFood;
             itemInFuelSlot = "";
