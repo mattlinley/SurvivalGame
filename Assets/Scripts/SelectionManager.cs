@@ -54,8 +54,37 @@ public class SelectionManager : MonoBehaviour
                             out hit))
         {
             var selectionTransform = hit.transform;
-            
 
+
+
+            SwimArea swimArea = selectionTransform.GetComponent<SwimArea>();
+
+            if (swimArea && hit.distance < 13f)
+            {
+                interaction_text.text = "Drink";
+
+                if (swimArea.isDrinking)
+                {
+                    interaction_Info_UI.SetActive(false);
+                    centerDotImage.gameObject.SetActive(true);
+                    handIcon.gameObject.SetActive(false);
+
+                    handIsVisible = false;
+                }
+                else
+                {
+                    interaction_Info_UI.SetActive(true);
+                    centerDotImage.gameObject.SetActive(false);
+                    handIcon.gameObject.SetActive(true);
+
+                    handIsVisible = true;
+                }
+                
+                if (Input.GetMouseButtonDown(0) && swimArea.isDrinking == false)
+                {
+                    swimArea.isDrink();
+                }
+            }
             
 
             NPC npc = selectionTransform.GetComponent<NPC>();
@@ -265,7 +294,7 @@ public class SelectionManager : MonoBehaviour
                 }
             }
 
-            if (!interactable && !animal)
+            if (!interactable && !animal && !swimArea)
             {
                 onTarget = false;
                 handIsVisible = false;
@@ -274,7 +303,7 @@ public class SelectionManager : MonoBehaviour
                 handIcon.gameObject.SetActive(false);
             }
 
-            if (!npc && !interactable && !animal && !choppableTree && !storageBox && !campfire && !soil)
+            if (!npc && !interactable && !animal && !choppableTree && !storageBox && !campfire && !soil && !swimArea)
             {
                 interaction_text.text = "";
                 interaction_Info_UI.SetActive(false);

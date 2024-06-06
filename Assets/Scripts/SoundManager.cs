@@ -21,6 +21,8 @@ public class SoundManager : MonoBehaviour
     public AudioSource startingZoneBGMusic;
     public AudioSource voiceovers;
 
+    public AudioSource drinkSound;
+
     public bool isTalking;
 
 

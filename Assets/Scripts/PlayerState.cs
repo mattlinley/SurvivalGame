@@ -68,7 +68,17 @@ public class PlayerState : MonoBehaviour
         while (true)
         {
             yield return new WaitForSeconds(10f);
-            currentHydration -= 1;
+            currentHydration = Mathf.Max(0, currentHydration - 1);
+            if (currentHydration == 0)
+            {
+                //damage
+                currentHealth -= 3;
+            }
+            if (currentCalories == 0)
+            {
+                //damage
+                currentHealth -= 5;
+            }
         }
     }
 
@@ -90,17 +100,14 @@ public class PlayerState : MonoBehaviour
                                               lastPosition);
         lastPosition = playerBody.transform.position;
 
+
+
         if (distanceTravelled >= 5)
         {
             distanceTravelled = 0;
             currentCalories -= 1;
         }
 
-        //testing the health bar
-        if (Input.GetKeyDown(KeyCode.N))
-        {
-            currentHealth -= 10;
-        }
     }
 
     private void DecreaseOxygen()
@@ -118,16 +125,16 @@ public class PlayerState : MonoBehaviour
 
     public void setHealth (float newHealth)
     {
-        currentHealth = newHealth;
+        currentHealth = Mathf.Max(0, newHealth);
     }
 
     public void setCalories(float newCalories)
     {
-        currentCalories = newCalories;
+        currentCalories = Mathf.Max(0, newCalories);
     }
 
     public void setHydration(float newHydration)
     {
-        currentHydration = newHydration;
+        currentHydration = Mathf.Max(0, newHydration);
     }
 }
